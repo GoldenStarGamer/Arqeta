@@ -33,6 +33,16 @@ extern "C"
 			{
 				close_callback();
 			}
+			else
+			{
+				
+				Exit(&vls);
+			}
 		}
+	}
+
+	export bool GetKey(int key)
+	{
+		return glfwGetKey(vls.window, key);
 	}
 }

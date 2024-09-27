@@ -4,3 +4,4 @@
 
 void WindowInit(VLS* vls, int width, int height, const char* title);
 void Update(VLS* vls);
+void Exit(VLS* vls);

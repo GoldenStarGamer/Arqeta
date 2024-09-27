@@ -43,3 +43,7 @@ void WindowInit(VLS* vls, int width, int height, const char* title)
 	vls->window = window;
 }
 
+void Exit(VLS* vls)
+{
+	glfwTerminate();
+}

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Arqeta;
+using System;
 using System.Runtime.InteropServices;
 
 class Program
@@ -17,6 +18,9 @@ class Program
     [DllImport("ArqetaRndr.dll", CallingConvention = CallingConvention.Cdecl)]
     public static extern void update();
 
+    [DllImport("ArqetaRndr.dll", CallingConvention = CallingConvention.Cdecl)]
+    public static extern bool GetKey(int key);
+
     static bool close = false;
 
     public static void OnClose()
@@ -33,6 +37,10 @@ class Program
         initwindow(800, 600, "ArqetaEngine");
         while (!close)
         {
+            if(GetKey(((int)Keys.KEY_ESCAPE)))
+            {
+                close = true;
+            }
             update();
         }
     }

@@ -158,11 +158,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
+    <ClInclude Include="RenderMng.h" />
     <ClInclude Include="RndrVLS.h" />
+    <ClInclude Include="Shader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="glad.c" />
+    <ClCompile Include="RenderMng.cpp" />
+    <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="Window.h" />
   </ItemGroup>

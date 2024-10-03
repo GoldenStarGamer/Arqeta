@@ -159,6 +159,7 @@
   <ItemGroup>
     <ClInclude Include="framework.h" />
     <ClInclude Include="RenderMng.h" />
+    <ClInclude Include="RenderObject.h" />
     <ClInclude Include="RndrVLS.h" />
     <ClInclude Include="Shader.h" />
   </ItemGroup>

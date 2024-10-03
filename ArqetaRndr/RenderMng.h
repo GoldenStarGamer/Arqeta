@@ -5,6 +5,7 @@ class RenderMng
 {
 public:
 	RenderMng(VLS* _vls);
+	Render()
 	~RenderMng();
 
 private:

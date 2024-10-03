@@ -11,7 +11,7 @@ namespace Arqeta
     {
         protected List<Object> Children = [];
         Transform transform;
-        protected Entity(Transform tran) 
+        protected Entity(Game game, Transform tran) : base(game)
         {
             transform = tran;
         }

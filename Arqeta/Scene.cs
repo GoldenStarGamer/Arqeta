@@ -15,11 +15,10 @@ namespace Arqeta
             entities = new(ents);
         }
 
-
-
         public void Update()
         {
-
+            List<Task> tasks = [];
+            foreach (var ent in entities) tasks.Add(Task.Run(() => ent.Update()));
         }
     }
 }

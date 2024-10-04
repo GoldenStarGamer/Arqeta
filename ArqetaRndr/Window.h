@@ -1,7 +1,14 @@
 #pragma once
 #include <glad/glad.h>
-#include "RndrVLS.h"
+#include <glfw3.h>
 
-void WindowInit(VLS* vls, int width, int height, const char* title);
-void Update(VLS* vls);
-void Exit(VLS* vls);
+class Window
+{
+private:
+	GLFWwindow* window;
+public:
+	Window(int width, int height, const char* title);
+	GLFWwindow* GetWindow() { return window; }
+	void Update();
+	~Window();
+};

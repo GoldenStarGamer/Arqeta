@@ -1,12 +1,21 @@
 #include "RenderMng.h"
+#include <iostream>
 
-RenderMng::RenderMng(VLS* _vls)
+RenderMng::RenderMng(Window* _window)
 {
-	vls = _vls;
-	vls->rendermng = this;
+	window = _window;
 }
 
 RenderMng::~RenderMng()
 {
 
+}
+
+void RenderMng::Render(float* verts, int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		std::cout << verts[i] << ", ";
+	}
+	std::cout << "render" << std::endl;
 }

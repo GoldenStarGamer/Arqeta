@@ -10,7 +10,7 @@ namespace Arqeta
     public abstract class Entity : Object
     {
         protected List<Object> Children = [];
-        Transform transform;
+        protected Transform transform;
         protected Entity(Game game, Transform tran) : base(game)
         {
             transform = tran;

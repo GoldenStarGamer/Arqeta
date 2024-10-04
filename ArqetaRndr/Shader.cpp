@@ -1,6 +1,6 @@
 #include "Shader.h"
 
-Shader::Shader(VLS* _vls)
+Shader::Shader()
 {
-	vls = _vls;
+
 }

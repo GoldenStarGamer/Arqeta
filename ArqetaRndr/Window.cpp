@@ -8,21 +8,21 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 	glViewport(0, 0, width, height);
 }
 
-void Update(VLS* vls)
+void Window::Update()
 {
-	glfwSwapBuffers(vls->window);
+	glfwSwapBuffers(window);
 	glfwPollEvents();
 	
 }
 
-void WindowInit(VLS* vls, int width, int height, const char* title)
+Window::Window(int width, int height, const char* title)
 {
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	GLFWwindow* window = glfwCreateWindow(width, height, title, NULL, NULL);
+	this->window = glfwCreateWindow(width, height, title, NULL, NULL);
 
 	if (window == NULL)
 	{
@@ -40,10 +40,10 @@ void WindowInit(VLS* vls, int width, int height, const char* title)
 	glViewport(0, 0, width, height);
 
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-	vls->window = window;
+	
 }
 
-void Exit(VLS* vls)
+Window::~Window()
 {
 	glfwTerminate();
 }

@@ -5,10 +5,15 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
+
+
 namespace Arqeta
 {
+    
     public class Window
     {
+
+
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate void ShouldCloseCallback();
 
@@ -25,6 +30,9 @@ namespace Arqeta
         [DllImport("ArqetaRndr.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern bool GetKey(int key);
 
+        [DllImport("ArqetaRndr.dll", CallingConvention = CallingConvention.Cdecl)]
+        static extern void render(float[] verts, int size);
+
         public Window(int width, int height, string title, ShouldCloseCallback onClose)
         {
             OnShouldClose(onClose);
@@ -33,6 +41,17 @@ namespace Arqeta
         public void Update()
         {
             update();
+        }
+        public void Render(RenderObject obj)
+        {
+            List<float> floats = [];
+            foreach (var vert in obj.verts)
+            {
+                floats.AddRange(vert.pos);
+                floats.AddRange(vert.texpos);
+            }
+            render(floats.ToArray(), floats.Count);
+
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Arqeta
 {
     public struct Transform
     {
-        Vector3 position;
-        Vector3 rotation;
+        public Vector3 position;
+        public Vector3 rotation;
     }
 }

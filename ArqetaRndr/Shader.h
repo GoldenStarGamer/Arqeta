@@ -1,13 +1,11 @@
 #pragma once
-#include "RndrVLS.h"
 
 class Shader
 {
 public:
-	Shader(VLS* vls);
+	Shader();
 
 	~Shader();
 
 private:
-	VLS* vls;
 };

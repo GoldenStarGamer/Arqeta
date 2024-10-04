@@ -18,16 +18,10 @@
     <ClInclude Include="framework.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RndrVLS.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="RenderMng.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Shader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -9,8 +9,8 @@ namespace Arqeta
 {
     public abstract class Object
     {
-        Game Game;
-        protected Object(Game game) { Game = game; }
+        protected Game game;
+        protected Object(Game _game) { game = _game; }
         public abstract void Init();
         public abstract void Update();
         public abstract void LateUpdate();

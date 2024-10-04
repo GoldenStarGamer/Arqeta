@@ -1,13 +1,12 @@
 #pragma once
-#include "RndrVLS.h"
+#include "Window.h"
 
 class RenderMng
 {
-public:
-	RenderMng(VLS* _vls);
-	Render()
-	~RenderMng();
-
 private:
-	VLS* vls;
+	Window* window;
+public:
+	RenderMng(Window* _window);
+	void Render(float* verts, int size);
+	~RenderMng();
 };

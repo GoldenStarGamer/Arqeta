@@ -13,19 +13,27 @@ namespace Arqeta
         bool close = false;
 
         Window window;
+        Scene scene;
 
         public Game()
         {
-            window = new(600, 600, "Arqeta", () => close = true);
+            window = new(800, 600, "Arqeta", () => close = true);
+
+            scene = new([new Mesh(this, new())]);
             while (!close)
             {
                 if (GetKey((int)Keys.KEY_ESCAPE))
                 {
                     close = true;
                 }
-
+                scene.Update();
                 window.Update();
             }
+        }
+
+        public void Render(RenderObject obj)
+        {
+            window.Render(obj);
         }
     }
 }

@@ -1,19 +1,21 @@
 // dllmain.cpp : Defines the entry point for the DLL application.
 
 #include "Window.h"
-#include "RndrVLS.h"
+#include "RenderMng.h"
+#include <iostream>
 
 #define export __declspec(dllexport)
 
-VLS vls;
-
+Window* window;
+RenderMng* rendermng;
 
 extern "C"
 {
 
 	export void initwindow(int width, int height, const char* title)
 	{
-		WindowInit(&vls, width, height, title);
+		window = new Window(width, height, title);
+		rendermng = new RenderMng(window);
 	}
 	
 	typedef void (*ShouldCloseCallback)();
@@ -26,23 +28,28 @@ extern "C"
 
 	export void update()
 	{
-		Update(&vls);
-		if (glfwWindowShouldClose(vls.window))
+		window->Update();
+		if (glfwWindowShouldClose(window->GetWindow()))
 		{
 			if (close_callback)
 			{
 				close_callback();
 			}
-			else
-			{
-				
-				Exit(&vls);
-			}
+			
+			delete rendermng;
+			delete window;
+			rendermng = nullptr;
+			window = nullptr;
 		}
 	}
 
 	export bool GetKey(int key)
 	{
-		return glfwGetKey(vls.window, key);
+		return glfwGetKey(window->GetWindow(), key);
+	}
+
+	export void render(float* verts, int size)
+	{
+		rendermng->Render(verts, size);
 	}
 }

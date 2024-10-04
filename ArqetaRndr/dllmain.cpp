@@ -29,6 +29,7 @@ extern "C"
 	export void update()
 	{
 		window->Update();
+		rendermng->Render();
 		if (glfwWindowShouldClose(window->GetWindow()))
 		{
 			if (close_callback)
@@ -50,6 +51,11 @@ extern "C"
 
 	export void render(float* verts, int size)
 	{
-		rendermng->Render(verts, size);
+		for (size_t i = 0; i < size; i++)
+		{
+			std::cout << "VERN" << verts[i] << "ACS";
+		}
+		std::cout << "EXTA";
+		rendermng->AddRender(std::vector<float>(verts, verts + size));
 	}
 }

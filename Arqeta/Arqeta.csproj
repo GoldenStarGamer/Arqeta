@@ -8,9 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ArqetaRndr\ArqetaRndr.vcxproj">
-      <Private>True</Private>
-    </ProjectReference>
+    <PackageReference Include="OpenTK" Version="4.8.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Shaders\" />
   </ItemGroup>
 
 </Project>

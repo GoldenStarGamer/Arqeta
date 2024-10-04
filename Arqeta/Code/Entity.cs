@@ -15,39 +15,39 @@ namespace Arqeta
         {
             transform = tran;
         }
-        public override async void Update()
+        public override async Task Update()
         {
             List<Task> tasks = new();
             foreach (var child in Children)
             {
-                tasks.Add(Task.Run(() => child.Update()));
+                tasks.Add(child.Update());
                 await Task.WhenAll(tasks);
             }
         }
-        public override async void LateUpdate()
+        public override async Task LateUpdate()
         {
             List<Task> tasks = new();
             foreach (var child in Children)
             {
-                tasks.Add(Task.Run(() => child.LateUpdate()));
+                tasks.Add(child.LateUpdate());
                 await Task.WhenAll(tasks);
             }
         }
-        public override async void Init()
+        public override async Task Init()
         {
             List<Task> tasks = new();
             foreach (var child in Children)
             {
-                tasks.Add(Task.Run(() => child.Init()));
+                tasks.Add(child.Init());
                 await Task.WhenAll(tasks);
             }
         }
-        public override async void Delete()
+        public override async Task Delete()
         {
             List<Task> tasks = new();
             foreach (var child in Children)
             {
-                tasks.Add(Task.Run(() => child.Delete()));
+                tasks.Add(child.Delete());
                 await Task.WhenAll(tasks);
             }
         }

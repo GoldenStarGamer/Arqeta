@@ -11,9 +11,9 @@ namespace Arqeta
     {
         protected Game game;
         protected Object(Game _game) { game = _game; }
-        public abstract void Init();
-        public abstract void Update();
-        public abstract void LateUpdate();
-        public abstract void Delete();
+        public abstract Task Init();
+        public abstract Task Update();
+        public abstract Task LateUpdate();
+        public abstract Task Delete();
     }
 }

@@ -19,8 +19,6 @@ namespace Arqeta
 
             rotatedDirection.Normalize();
 
-            Console.WriteLine(rotatedDirection);
-
             position += rotatedDirection * lengh;
         }
     }

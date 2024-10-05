@@ -65,13 +65,10 @@ namespace Arqeta
 
             movement += Vector3.UnitZ * (input.IsKeyDown(Keys.W) ? 1 : 0);
             movement += Vector3.UnitZ * -1 * (input.IsKeyDown(Keys.S) ? 1 : 0);
-            Console.WriteLine(movement + "z");
             movement += Vector3.UnitX * (input.IsKeyDown(Keys.A) ? 1 : 0);
             movement += Vector3.UnitX * -1 * (input.IsKeyDown(Keys.D) ? 1 : 0);
-            Console.WriteLine(movement + "x");
             movement += Vector3.UnitY * (input.IsKeyDown(Keys.LeftControl) ? 1 : 0);
             movement += Vector3.UnitY * -1 * (input.IsKeyDown(Keys.Space) ? 1 : 0);
-            Console.WriteLine(movement + "y");
 
             if (movement != Vector3.Zero) camera.transform.Move(movement * (float)args.Time);
             scene.Update();

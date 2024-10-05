@@ -20,9 +20,14 @@ namespace Arqeta
     public class RenderMng
     {
         List<RenderObject> batch = [];
+        Shader shader;
+        public RenderMng()
+        {
+            shader = new("Shaders\\vertex.vert", "Shaders\\fragment.frag");
+        }
         public void Init()
         {
-            GL.ClearColor(0f, 0f, 1f, 1f);
+            GL.ClearColor(0f, 1f, 0f, 1f);
         }
         public void AddRender(RenderObject obj)
         {
@@ -43,11 +48,15 @@ namespace Arqeta
             foreach (var item in batch)
             {
                 RndrBuffers buffrs = new();
+                shader.Use();
                 GL.BindBuffer(BufferTarget.ArrayBuffer, buffrs.VBO);
                 GL.BufferData(BufferTarget.ArrayBuffer, item.usable().Length * sizeof(float), item.usable(), BufferUsageHint.StreamDraw);
                 GL.BindVertexArray(buffrs.VAO);
-                GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 5 * sizeof(float), 0);
-                GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 5 * sizeof(float), 3 * sizeof(float));
+                GL.VertexAttribPointer(shader.GetAttribLocation("pos"), 3, VertexAttribPointerType.Float, false, 5 * sizeof(float), 0);
+                GL.EnableVertexAttribArray(shader.GetAttribLocation("pos"));
+                GL.VertexAttribPointer(shader.GetAttribLocation("texcoord"), 2, VertexAttribPointerType.Float, false, 5 * sizeof(float), 3 * sizeof(float));
+                GL.EnableVertexAttribArray(shader.GetAttribLocation("tex"));
+                GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
                 Free(buffrs);
             }
             batch.Clear();

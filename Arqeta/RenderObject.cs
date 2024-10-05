@@ -18,6 +18,7 @@ namespace Arqeta
     public struct RenderObject
     {
         public Vert[] verts;
+        public Texture texture;
         public float[] usable()
         {
             List<float> list = new();

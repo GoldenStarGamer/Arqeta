@@ -14,7 +14,7 @@ namespace Arqeta
     {
         RenderMng mng;   
         Scene scene;
-
+        ContentMng assets;
         public Game(int width, int height, string title) : base(GameWindowSettings.Default, new()
         { 
             ClientSize = (width, height),
@@ -25,6 +25,7 @@ namespace Arqeta
         {
             mng = new();
             scene = new([new Mesh(this, new())]);
+            assets = new();
         }
 
         protected override void OnLoad()
@@ -61,6 +62,11 @@ namespace Arqeta
             base.OnRenderFrame(args);
             mng.Render();
             SwapBuffers();
+        }
+
+        public T GetAsset<T>(string path)
+        {
+            return assets.Get<T>(path);
         }
     }
 }

@@ -8,11 +8,22 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="OpenTK" Version="4.8.2" />
+    <None Remove="Shaders\fragment.frag" />
+    <None Remove="Shaders\vertex.vert" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Shaders\" />
+    <Content Include="Shaders\fragment.frag">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Shaders\vertex.vert">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="OpenTK" Version="4.8.2" />
+    <PackageReference Include="StbImageSharp" Version="2.30.15" />
   </ItemGroup>
 
 </Project>

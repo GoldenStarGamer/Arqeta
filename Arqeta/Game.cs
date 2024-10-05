@@ -1,6 +1,7 @@
 ﻿using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
+using OpenTK.Windowing.Common.Input;
 using OpenTK.Windowing.Desktop;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using System;
@@ -26,6 +27,7 @@ namespace Arqeta
             APIVersion = new System.Version(4, 6)
         })
         {
+            CursorState = CursorState.Grabbed;
             mng = new(Size);
             scene = new([new BaseCube(this, new()), new BaseCube(this, new() { position = (1f, -1f, -1f)})]);
             assets = new();
@@ -60,6 +62,10 @@ namespace Arqeta
         {
             base.OnUpdateFrame(args);
             var input = KeyboardState;
+            if (input.IsKeyDown(Keys.Escape))
+            {
+                Close();
+            }
 
             Vector3 movement = Vector3.Zero;
 
@@ -71,6 +77,9 @@ namespace Arqeta
             movement += Vector3.UnitY * -1 * (input.IsKeyDown(Keys.Space) ? 1 : 0);
 
             if (movement != Vector3.Zero) camera.transform.Move(movement * (float)args.Time);
+
+            if (MouseState.Delta != Vector2.Zero) camera.transform.Rotate(MouseState.Delta, (float)args.Time);
+
             scene.Update();
         }
 

@@ -4,6 +4,7 @@ using System.Linq;
 using OpenTK.Mathematics;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Arqeta
 {
@@ -13,14 +14,13 @@ namespace Arqeta
         public Vector3 rotation;
         public void Move(Vector3 direction)
         {
-            Vector3 rotatedDirection = Vector3.Transform(direction, Quaternion.FromEulerAngles(rotation));
+            position += direction;
+        }
 
-            float lengh = rotatedDirection.Length;
-
-            rotatedDirection.Normalize();
-
-            position += rotatedDirection * lengh;
+        public void Rotate(Vector2 mouseDelta, float sensitivity)
+        {
+            rotation += new Vector3() { Yx = mouseDelta * sensitivity };
         }
     }
-    
 }
+

@@ -24,6 +24,7 @@ namespace Arqeta
                 await Task.WhenAll(tasks);
             }
         }
+
         public override async Task LateUpdate()
         {
             List<Task> tasks = new();

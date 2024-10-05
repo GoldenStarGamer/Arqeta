@@ -12,6 +12,9 @@ namespace Arqeta
     {
         int Handle;
         bool disposed;
+
+        Dictionary<string, int> uniforms;
+
         public Shader( string vertPath, string fragPath)
         {
             var vertcode = File.ReadAllText(vertPath);
@@ -59,6 +62,19 @@ namespace Arqeta
             GL.DetachShader(Handle, fragshader);
             GL.DeleteShader(vertshader);
             GL.DeleteShader(fragshader);
+
+            uniforms = new();
+            GL.GetProgram(Handle, GetProgramParameterName.ActiveUniforms, out var numberOfUniforms);
+
+            for (int i = 0; i < numberOfUniforms; i++)
+            {
+                var key = GL.GetActiveUniform(Handle, i, out _, out _);
+
+                var location = GL.GetUniformLocation(Handle, key);
+
+                uniforms.Add(key, location);
+            }
+
         }
 
         public void Use()
@@ -69,6 +85,30 @@ namespace Arqeta
         public int GetAttribLocation(string attribName)
         {
             return GL.GetAttribLocation(Handle, attribName);
+        }
+
+        public void SetUniform(string name, int data)
+        {
+            Use();
+            GL.Uniform1(uniforms[name], data);
+        }
+
+        public void SetUniform(string name, float data)
+        {
+            Use();
+            GL.Uniform1(uniforms[name], data);
+        }
+
+        public void SetUniform(string name, Matrix4 data)
+        {
+            Use();
+            GL.UniformMatrix4(uniforms[name], true, ref data);
+        }
+
+        public void SetUniform(string name, Vector3 data)
+        {
+            Use();
+            GL.Uniform3(uniforms[name], data);
         }
 
         public void Dispose()

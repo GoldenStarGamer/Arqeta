@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenTK.Mathematics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,16 +7,18 @@ using System.Threading.Tasks;
 
 namespace Arqeta
 {
-    public class Mesh : Entity
+    public abstract class Mesh : Entity
     {
+        protected RenderObject renderObject = new();
         public async override Task Init()
         {
             await base.Init();
         }
-        public async override Task Update()
+        public async override Task LateUpdate()
         {
-            await base.Update();
-            game.Render(new() { verts = [new() { pos = [-1f, -1f, 1f], texpos = [0f, 1f] }, new() { pos = [0f, 1f, 1f], texpos = [0f, 1f] }, new() { pos = [1f, -1f, 1f], texpos = [0f, 1f] }] });
+            await base.LateUpdate();
+            renderObject.model = Matrix4.CreateRotationX(MathHelper.DegreesToRadians(transform.rotation.X)) * Matrix4.CreateRotationY(MathHelper.DegreesToRadians(transform.rotation.Y)) * Matrix4.CreateRotationZ(MathHelper.DegreesToRadians(transform.rotation.Z)) * Matrix4.CreateTranslation(transform.position);
+            game.Render(renderObject);
         }
         public Mesh(Game game, Transform tran) : base(game, tran)
         {

@@ -17,7 +17,7 @@ namespace Arqeta
         }
         public override async Task Update()
         {
-            List<Task> tasks = new();
+            List<Task> tasks = [];
             foreach (var child in Children)
             {
                 tasks.Add(child.Update());
@@ -27,7 +27,7 @@ namespace Arqeta
 
         public override async Task LateUpdate()
         {
-            List<Task> tasks = new();
+            List<Task> tasks = [];
             foreach (var child in Children)
             {
                 tasks.Add(child.LateUpdate());
@@ -36,7 +36,7 @@ namespace Arqeta
         }
         public override async Task Init()
         {
-            List<Task> tasks = new();
+            List<Task> tasks = [];
             foreach (var child in Children)
             {
                 tasks.Add(child.Init());
@@ -45,7 +45,7 @@ namespace Arqeta
         }
         public override async Task Delete()
         {
-            List<Task> tasks = new();
+            List<Task> tasks = [];
             foreach (var child in Children)
             {
                 tasks.Add(child.Delete());

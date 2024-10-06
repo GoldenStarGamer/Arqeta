@@ -18,26 +18,26 @@ namespace Arqeta
 
         public void Init()
         {
-            Task[] tasks = [];
-            foreach (var ent in entities) tasks.Append(ent.Init());
-            Task.WaitAll(tasks);
+            List<Task> tasks = [];
+            foreach (var ent in entities) tasks.Add(ent.Init());
+            Task.WaitAll(tasks.ToArray());
         }
 
         public void Update()
         {
-            Task[] tasks = [];
-            foreach (var ent in entities) tasks.Append(ent.Update());
-            Task.WaitAll(tasks);
+            List<Task> tasks = [];
+            foreach (var ent in entities) tasks.Add(ent.Update());
+            Task.WaitAll(tasks.ToArray());
             tasks = [];
-            foreach (var ent in entities) tasks.Append(ent.LateUpdate());
-            Task.WaitAll(tasks);
+            foreach (var ent in entities) tasks.Add(ent.LateUpdate());
+            Task.WaitAll(tasks.ToArray());
         }
 
         ~Scene()
         {
-            Task[] tasks = [];
-            foreach (var ent in entities) tasks.Append(ent.Delete());
-            Task.WaitAll(tasks);
+            List<Task> tasks = [];
+            foreach (var ent in entities) tasks.Add(ent.Delete());
+            Task.WaitAll(tasks.ToArray());
         }
     }
 }

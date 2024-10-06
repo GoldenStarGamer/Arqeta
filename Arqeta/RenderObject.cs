@@ -1,4 +1,5 @@
-﻿using OpenTK.Mathematics;
+﻿using OpenTK.Graphics.OpenGL4;
+using OpenTK.Mathematics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,12 +32,13 @@ namespace Arqeta
     public struct RenderObject
     {
         public Vert[] verts;
-        public Texture texture;
         public Matrix4 model;
         public int[] index;
+        public Texture[] textures;
+
         public float[] usable()
         {
-            List<float> list = new();
+            List<float> list = [];
             foreach (var item in verts)
             {
                 list.AddRange(item.usable());

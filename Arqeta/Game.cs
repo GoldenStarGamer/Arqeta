@@ -17,7 +17,7 @@ namespace Arqeta
     {
         RenderMng mng;   
         Scene scene;
-        ContentMng assets;
+        public ContentMng assets;
         Camera camera;
 
         public double DeltaT { get; private set; }
@@ -31,7 +31,7 @@ namespace Arqeta
         })
         {
             CursorState = CursorState.Grabbed;
-            mng = new(Size);
+            mng = new();
             scene = new([new BaseCube(this, new()), new BaseCube(this, new() { position = (1f, -1f, -1f)})]);
             assets = new();
             camera = new(Vector3.UnitZ * 3, Size.X / (float)Size.Y);
@@ -117,11 +117,6 @@ namespace Arqeta
             base.OnRenderFrame(args);
             mng.Render(camera);
             SwapBuffers();
-        }
-
-        public T GetAsset<T>(string path)
-        {
-            return assets.Get<T>(path);
         }
     }
 }

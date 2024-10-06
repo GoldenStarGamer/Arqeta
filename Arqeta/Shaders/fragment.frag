@@ -1,10 +1,17 @@
 ﻿#version 460
-in vec4 texpos;
+in vec2 texpos;
 out vec4 FragColor;
 
-uniform sampler2D tex;
+uniform sampler2DArray texs;
+uniform int texcount;
 
 void main()
 {
-    FragColor = vec4((texpos + 1)/2);
+    vec4 color = vec4(0);
+    /*for(int i = 0; i < texcount; i++)
+    {
+        color += texture(texs, vec3(texpos, i)) / float(texcount);
+    }*/
+
+    FragColor = texture(texs, vec3(texpos, 1));/*color;*/
 }

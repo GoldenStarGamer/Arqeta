@@ -1,4 +1,5 @@
-﻿using OpenTK.Mathematics;
+﻿using OpenTK.Graphics.OpenGL4;
+using OpenTK.Mathematics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,16 +12,22 @@ namespace Arqeta
     {
         public BaseCube(Game game, Transform tran) : base(game, tran)
         {
+            
+        }
+        public override async Task Init()
+        {
+            await base.Init();
+
             renderObject.verts =
             [
-                new() { pos = (-1f, -1f,  1f), texpos = (-1f, -1f) },
-                new() { pos = ( 1f, -1f,  1f), texpos = ( 1f, -1f) },
-                new() { pos = (-1f,  1f,  1f), texpos = (-1f,  1f) },
-                new() { pos = ( 1f,  1f,  1f), texpos = ( 1f,  1f) },
-                new() { pos = (-1f, -1f, -1f), texpos = (-1f, -1f) },
-                new() { pos = ( 1f, -1f, -1f), texpos = ( 1f, -1f) },
-                new() { pos = (-1f,  1f, -1f), texpos = (-1f,  1f) },
-                new() { pos = ( 1f,  1f, -1f), texpos = ( 1f,  1f) }
+                new() { pos = (-1f, -1f,  1f), texpos = (0f, 0f) },
+                new() { pos = ( 1f, -1f,  1f), texpos = (1f, 0f) },
+                new() { pos = (-1f,  1f,  1f), texpos = (0f, 1f) },
+                new() { pos = ( 1f,  1f,  1f), texpos = (1f, 1f) },
+                new() { pos = (-1f, -1f, -1f), texpos = (0f, 0f) },
+                new() { pos = ( 1f, -1f, -1f), texpos = (1f, 0f) },
+                new() { pos = (-1f,  1f, -1f), texpos = (0f, 1f) },
+                new() { pos = ( 1f,  1f, -1f), texpos = (1f, 1f) }
             ];
             renderObject.index =
             [
@@ -37,7 +44,11 @@ namespace Arqeta
                 0, 1, 4,
                 1, 4, 5
             ];
+            renderObject.textures = [new(game, "concrete.jpg"), new(game, "Trollface.png")];
+            Console.WriteLine(renderObject.textures);
         }
+        
+
         public async override Task Update()
         {
             await base.Update();

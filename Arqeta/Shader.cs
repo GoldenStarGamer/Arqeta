@@ -110,6 +110,18 @@ namespace Arqeta
             Use();
             GL.Uniform3(uniforms[name], data);
         }
+        
+        public void SetUniform(string name, int[] data)
+        {
+            Use();
+            GL.Uniform1(uniforms[name], data.Length, data);
+        }
+
+        public void SetUniform(string name, float[] data)
+        {
+            Use();
+            GL.Uniform1(uniforms[name], data.Length , data);
+        }
 
         public void Dispose()
         {

@@ -8,10 +8,10 @@ uniform int texcount;
 void main()
 {
     vec4 color = vec4(0);
-    /*for(int i = 0; i < texcount; i++)
+    for(int i = 0; i < texcount; i++)
     {
         color += texture(texs, vec3(texpos, i)) / float(texcount);
-    }*/
+    }
 
-    FragColor = texture(texs, vec3(texpos, 1));/*color;*/
+    FragColor = color;
 }

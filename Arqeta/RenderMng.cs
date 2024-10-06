@@ -96,11 +96,14 @@ namespace Arqeta
 
                 GL.BindTexture(TextureTarget.Texture2DArray, texhandle); // Bind the texture array before drawing
                 shader.SetUniform("model", item.model);
+                shader.SetUniform("texcount", LayerCount);
 
                 GL.BufferData(BufferTarget.ArrayBuffer, item.usable().Length * sizeof(float), item.usable(), BufferUsageHint.StreamDraw);
                 GL.BufferData(BufferTarget.ElementArrayBuffer, item.index.Length * sizeof(uint), item.index, BufferUsageHint.StaticDraw);
 
                 GL.DrawElements(PrimitiveType.Triangles, item.index.Length, DrawElementsType.UnsignedInt, 0);
+                GL.BindTexture(TextureTarget.Texture2DArray, 0);
+                GL.DeleteTexture(texhandle);
             }
 
             Free(buffrs);

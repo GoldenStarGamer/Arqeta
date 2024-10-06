@@ -72,13 +72,14 @@ namespace Arqeta
             shader.SetUniform("view", cam.GetViewMatrix());
             shader.SetUniform("project", cam.GetProjectionMatrix());
 
+            int texhandle = GL.GenTexture();
+            GL.BindTexture(TextureTarget.Texture2DArray, texhandle);
+
             foreach (var item in batch)
             {
-                int texhandle;
 
                 int LayerCount = item.textures.Length;
-                texhandle = GL.GenTexture();
-                GL.BindTexture(TextureTarget.Texture2DArray, texhandle);
+                
 
                 GL.TexImage3D(TextureTarget.Texture2DArray, 0, PixelInternalFormat.Rgba, item.textures[0].image.Width, item.textures[0].image.Height, LayerCount, 0, PixelFormat.Rgba, PixelType.UnsignedByte, IntPtr.Zero);
 
@@ -102,10 +103,10 @@ namespace Arqeta
                 GL.BufferData(BufferTarget.ElementArrayBuffer, item.index.Length * sizeof(uint), item.index, BufferUsageHint.StaticDraw);
 
                 GL.DrawElements(PrimitiveType.Triangles, item.index.Length, DrawElementsType.UnsignedInt, 0);
-                GL.BindTexture(TextureTarget.Texture2DArray, 0);
-                GL.DeleteTexture(texhandle);
+                
             }
-
+            GL.BindTexture(TextureTarget.Texture2DArray, 0);
+            GL.DeleteTexture(texhandle);
             Free(buffrs);
             batch.Clear();
         }

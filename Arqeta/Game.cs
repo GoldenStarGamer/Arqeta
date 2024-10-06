@@ -19,6 +19,9 @@ namespace Arqeta
         Scene scene;
         ContentMng assets;
         Camera camera;
+
+        public double DeltaT { get; private set; }
+
         public Game(int width, int height, string title) : base(GameWindowSettings.Default, new()
         { 
             ClientSize = (width, height),
@@ -62,6 +65,8 @@ namespace Arqeta
         {
             base.OnUpdateFrame(args);
 
+            DeltaT = args.Time;
+
             var input = KeyboardState;
 
             if (input.IsKeyDown(Keys.Escape))
@@ -74,28 +79,28 @@ namespace Arqeta
 
             if (input.IsKeyDown(Keys.W))
             {
-                camera.Position += camera.Front * cameraSpeed * (float)args.Time; // Forward
+                camera.Position += camera.Front * cameraSpeed * (float)DeltaT; // Forward
             }
 
             if (input.IsKeyDown(Keys.S))
             {
-                camera.Position -= camera.Front * cameraSpeed * (float)args.Time; // Backwards
+                camera.Position -= camera.Front * cameraSpeed * (float)DeltaT; // Backwards
             }
             if (input.IsKeyDown(Keys.A))
             {
-                camera.Position -= camera.Right * cameraSpeed * (float)args.Time; // Left
+                camera.Position -= camera.Right * cameraSpeed * (float)DeltaT; // Left
             }
             if (input.IsKeyDown(Keys.D))
             {
-                camera.Position += camera.Right * cameraSpeed * (float)args.Time; // Right
+                camera.Position += camera.Right * cameraSpeed * (float)DeltaT; // Right
             }
             if (input.IsKeyDown(Keys.Space))
             {
-                camera.Position += camera.Up * cameraSpeed * (float)args.Time; // Up
+                camera.Position += camera.Up * cameraSpeed * (float)DeltaT; // Up
             }
             if (input.IsKeyDown(Keys.LeftShift))
             {
-                camera.Position -= camera.Up * cameraSpeed * (float)args.Time; // Down
+                camera.Position -= camera.Up * cameraSpeed * (float)DeltaT; // Down
             }
 
             var mouse = MouseState;

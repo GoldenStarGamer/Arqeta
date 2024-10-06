@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenTK.Mathematics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -40,6 +41,7 @@ namespace Arqeta
         public async override Task Update()
         {
             await base.Update();
+            transform.rotation += new Quaternion(1, 1, 1, 1).ToEulerAngles() * (float)game.DeltaT;
         }
     }
 }

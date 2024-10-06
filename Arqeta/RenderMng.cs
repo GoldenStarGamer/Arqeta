@@ -56,32 +56,33 @@ namespace Arqeta
         public void Render(Camera cam)
         {
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+            RndrBuffers buffrs = new();
+            shader.Use();
+            GL.BindVertexArray(buffrs.VAO);
+            GL.BindBuffer(BufferTarget.ArrayBuffer, buffrs.VBO);
+            GL.BindBuffer(BufferTarget.ElementArrayBuffer, buffrs.EBO);
+            
+            GL.VertexAttribPointer(shader.GetAttribLocation("pos"), 3, VertexAttribPointerType.Float, false, 5 * sizeof(float), 0);
+            GL.EnableVertexAttribArray(shader.GetAttribLocation("pos"));
+            GL.VertexAttribPointer(shader.GetAttribLocation("texcoord"), 2, VertexAttribPointerType.Float, false, 5 * sizeof(float), 3 * sizeof(float));
+            GL.EnableVertexAttribArray(shader.GetAttribLocation("tex"));
+            
+            shader.SetUniform("view", cam.GetViewMatrix());
+            shader.SetUniform("project", cam.GetProjectionMatrix());
+            
             foreach (var item in batch)
             {
-                RndrBuffers buffrs = new();
-                shader.Use();
-                GL.BindVertexArray(buffrs.VAO);
                 
-                GL.BindBuffer(BufferTarget.ArrayBuffer, buffrs.VBO);
                 GL.BufferData(BufferTarget.ArrayBuffer, item.usable().Length * sizeof(float), item.usable(), BufferUsageHint.StreamDraw);
 
-                GL.BindBuffer(BufferTarget.ElementArrayBuffer, buffrs.EBO);
                 GL.BufferData(BufferTarget.ElementArrayBuffer, item.index.Length * sizeof(uint), item.index, BufferUsageHint.StaticDraw);
 
-                GL.VertexAttribPointer(shader.GetAttribLocation("pos"), 3, VertexAttribPointerType.Float, false, 5 * sizeof(float), 0);
-                GL.EnableVertexAttribArray(shader.GetAttribLocation("pos"));
-                
-                GL.VertexAttribPointer(shader.GetAttribLocation("texcoord"), 2, VertexAttribPointerType.Float, false, 5 * sizeof(float), 3 * sizeof(float));
-                GL.EnableVertexAttribArray(shader.GetAttribLocation("tex"));
-                
                 shader.SetUniform("model", item.model);
-                shader.SetUniform("view", cam.GetViewMatrix());
-                shader.SetUniform("project", cam.GetProjectionMatrix());
 
                 GL.DrawElements(PrimitiveType.Triangles, item.index.Length, DrawElementsType.UnsignedInt, 0);
 
-                Free(buffrs);
             }
+            Free(buffrs);
             batch.Clear();
         }
     }

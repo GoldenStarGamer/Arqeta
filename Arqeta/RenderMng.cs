@@ -21,18 +21,11 @@ namespace Arqeta
 {
     public class RenderMng
     {
-        Matrix4 projection;
         List<RenderObject> batch = [];
         Shader shader;
         public RenderMng(Vector2 size)
         {
             shader = new("Shaders\\vertex.vert", "Shaders\\fragment.frag");
-            projection = Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(90f), size.X / size.Y, 0.1f, 100.0f);
-        }
-
-        public void ResizeProject(Vector2 size)
-        {
-            projection = Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(90f), size.X / size.Y, 0.1f, 100.0f);
         }
 
         public void Init()
@@ -68,8 +61,8 @@ namespace Arqeta
                 GL.VertexAttribPointer(shader.GetAttribLocation("texcoord"), 2, VertexAttribPointerType.Float, false, 5 * sizeof(float), 3 * sizeof(float));
                 GL.EnableVertexAttribArray(shader.GetAttribLocation("tex"));
                 shader.SetUniform("model", item.model);
-                shader.SetUniform("view", Matrix4.CreateTranslation(cam.transform.position) * Matrix4.CreateRotationX(cam.transform.rotation.X) * Matrix4.CreateRotationY(cam.transform.rotation.Y) * Matrix4.CreateRotationZ(cam.transform.rotation.Z));
-                shader.SetUniform("project", projection);
+                shader.SetUniform("view", cam.GetViewMatrix());
+                shader.SetUniform("project", cam.GetProjectionMatrix());
                 GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
                 Free(buffrs);
             }

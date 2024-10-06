@@ -31,7 +31,7 @@ namespace Arqeta
             mng = new(Size);
             scene = new([new BaseCube(this, new()), new BaseCube(this, new() { position = (1f, -1f, -1f)})]);
             assets = new();
-            camera = new(new() { position = (0f, 0f, -3f)});
+            camera = new(Vector3.UnitZ * 3, Size.X / (float)Size.Y);
         }
 
         protected override void OnLoad()
@@ -46,7 +46,7 @@ namespace Arqeta
             base.OnFramebufferResize(e);
 
             GL.Viewport(0, 0, e.Width, e.Height);
-            mng.ResizeProject(Size);
+            camera.AspectRatio = Size.X / (float)Size.Y;
         }
 
         /// <summary>
@@ -61,24 +61,48 @@ namespace Arqeta
         protected override void OnUpdateFrame(FrameEventArgs args)
         {
             base.OnUpdateFrame(args);
+
             var input = KeyboardState;
+
             if (input.IsKeyDown(Keys.Escape))
             {
                 Close();
             }
 
-            Vector3 movement = Vector3.Zero;
+            const float cameraSpeed = 1.5f;
+            const float sensitivity = 0.2f;
 
-            movement += Vector3.UnitZ * (input.IsKeyDown(Keys.W) ? 1 : 0);
-            movement += Vector3.UnitZ * -1 * (input.IsKeyDown(Keys.S) ? 1 : 0);
-            movement += Vector3.UnitX * (input.IsKeyDown(Keys.A) ? 1 : 0);
-            movement += Vector3.UnitX * -1 * (input.IsKeyDown(Keys.D) ? 1 : 0);
-            movement += Vector3.UnitY * (input.IsKeyDown(Keys.LeftControl) ? 1 : 0);
-            movement += Vector3.UnitY * -1 * (input.IsKeyDown(Keys.Space) ? 1 : 0);
+            if (input.IsKeyDown(Keys.W))
+            {
+                camera.Position += camera.Front * cameraSpeed * (float)args.Time; // Forward
+            }
 
-            if (movement != Vector3.Zero) camera.transform.Move(movement * (float)args.Time);
+            if (input.IsKeyDown(Keys.S))
+            {
+                camera.Position -= camera.Front * cameraSpeed * (float)args.Time; // Backwards
+            }
+            if (input.IsKeyDown(Keys.A))
+            {
+                camera.Position -= camera.Right * cameraSpeed * (float)args.Time; // Left
+            }
+            if (input.IsKeyDown(Keys.D))
+            {
+                camera.Position += camera.Right * cameraSpeed * (float)args.Time; // Right
+            }
+            if (input.IsKeyDown(Keys.Space))
+            {
+                camera.Position += camera.Up * cameraSpeed * (float)args.Time; // Up
+            }
+            if (input.IsKeyDown(Keys.LeftShift))
+            {
+                camera.Position -= camera.Up * cameraSpeed * (float)args.Time; // Down
+            }
 
-            if (MouseState.Delta != Vector2.Zero) camera.transform.Rotate(MouseState.Delta, (float)args.Time);
+            var mouse = MouseState;
+
+            // Apply the camera pitch and yaw (we clamp the pitch in the camera class)
+            camera.Yaw += mouse.Delta.X * sensitivity;
+            camera.Pitch -= mouse.Delta.Y * sensitivity; // Reversed since y-coordinates range from bottom to top
 
             scene.Update();
         }

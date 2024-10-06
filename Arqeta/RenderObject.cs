@@ -33,6 +33,7 @@ namespace Arqeta
         public Vert[] verts;
         public Texture texture;
         public Matrix4 model;
+        public int[] index;
         public float[] usable()
         {
             List<float> list = new();

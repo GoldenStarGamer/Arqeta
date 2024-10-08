@@ -24,10 +24,10 @@ namespace Arqeta
                 new() { pos = ( 1f, -1f,  1f), texpos = (1f, 0f) },
                 new() { pos = (-1f,  1f,  1f), texpos = (0f, 1f) },
                 new() { pos = ( 1f,  1f,  1f), texpos = (1f, 1f) },
-                new() { pos = (-1f, -1f, -1f), texpos = (0f, 0f) },
-                new() { pos = ( 1f, -1f, -1f), texpos = (1f, 0f) },
-                new() { pos = (-1f,  1f, -1f), texpos = (0f, 1f) },
-                new() { pos = ( 1f,  1f, -1f), texpos = (1f, 1f) }
+                new() { pos = (-1f, -1f, -1f), texpos = (1f, 1f) },
+                new() { pos = ( 1f, -1f, -1f), texpos = (0f, 1f) },
+                new() { pos = (-1f,  1f, -1f), texpos = (1f, 0f) },
+                new() { pos = ( 1f,  1f, -1f), texpos = (0f, 0f) }
             ];
             renderObject.index =
             [

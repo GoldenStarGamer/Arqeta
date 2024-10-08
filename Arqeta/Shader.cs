@@ -90,7 +90,7 @@ namespace Arqeta
         public void SetUniform(string name, int data)
         {
             Use();
-            GL.Uniform1(uniforms[name], data);
+            sGL.Uniform1(uniforms[name], data);
         }
 
         public void SetUniform(string name, float data)
